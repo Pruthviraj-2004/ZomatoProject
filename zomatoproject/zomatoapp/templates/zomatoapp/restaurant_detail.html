@@ -1,0 +1,127 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Detail</title>
+</head>
+<body>
+    <h1>{{ restaurant.name }}</h1>
+    <p>Address: {{ restaurant.address }}</p>
+    <p>Cuisines: {{ restaurant.cuisines }}</p>
+    <p>Average Cost for Two: {{ restaurant.average_cost_for_two }}</p>
+    <p>Aggregate Rating: {{ restaurant.aggregate_rating }}</p>
+    <p>Votes: {{ restaurant.votes }}</p>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Detail</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .restaurant-details {
+            margin-top: 30px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">ZomatoApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'restaurant_list' %}">Restaurant List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'search_by_location' %}">Search by Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'filter_restaurant' %}">Filter Restaurants</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container restaurant-details">
+        <h1 class="text-center">{{ restaurant.name }}</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <table class="table table-bordered table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Address</th>
+                            <td>{{ restaurant.address }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">City</th>
+                            <td>{{ restaurant.city }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td>{{ restaurant.country_code }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cuisines</th>
+                            <td>{{ restaurant.cuisines }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Average Cost for Two</th>
+                            <td>{{ restaurant.average_cost_for_two }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Aggregate Rating</th>
+                            <td>{{ restaurant.aggregate_rating }} / 5</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Votes</th>
+                            <td>{{ restaurant.votes }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Has Table Booking</th>
+                            <td>{{ restaurant.has_table_booking|yesno:"Yes,No" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Has Online Delivery</th>
+                            <td>{{ restaurant.has_online_delivery|yesno:"Yes,No" }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Price Range</th>
+                            <td>{{ restaurant.price_range }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Latitude</th>
+                            <td>{{ restaurant.latitude }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Longitude</th>
+                            <td>{{ restaurant.longitude }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

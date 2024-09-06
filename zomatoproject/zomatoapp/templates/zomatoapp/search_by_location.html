@@ -1,0 +1,125 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Location</title>
+</head>
+<body>
+    <h1>Search Restaurants by Location</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="number" step="0.01" name="latitude" placeholder="Latitude" required>
+        <input type="number" step="0.01" name="longitude" placeholder="Longitude" required>
+        <input type="number" step="0.01" name="range_km" placeholder="Range in km" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if restaurants %}
+        <ul>
+            {% for restaurant in restaurants %}
+                <li>{{ restaurant.name }} - {{ restaurant.city }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Location</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .search-section {
+            margin-top: 30px;
+        }
+        .results-section {
+            margin-top: 30px;
+        }
+        .btn-search {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-search:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">ZomatoApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'restaurant_list' %}">Restaurant List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'search_by_location' %}">Search by Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'filter_restaurant' %}">Filter Restaurants</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container search-section">
+        <h1 class="text-center">Search Restaurants by Location</h1>
+        <form method="POST" class="col-md-6 offset-md-3">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="number" step="0.000001" name="latitude" class="form-control" placeholder="Enter latitude" required>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="number" step="0.000001" name="longitude" class="form-control" placeholder="Enter longitude" required>
+            </div>
+            <div class="form-group">
+                <label for="range_km">Range (in km)</label>
+                <input type="number" step="0.01" name="range_km" class="form-control" placeholder="Enter range in km" required>
+            </div>
+            <button type="submit" class="btn btn-search btn-block">Search</button>
+        </form>
+    </div>
+
+    <!-- Search Results Section -->
+    <div class="container results-section">
+        {% if restaurants %}
+            <h2 class="text-center">Search Results</h2>
+            <ul class="list-group">
+                {% for restaurant in restaurants %}
+                    <li class="list-group-item">
+                        <strong>{{ restaurant.name }}</strong> - {{ restaurant.city }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            {% if request.method == "POST" %}
+                <p class="text-center text-danger">No restaurants found within the specified range.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
